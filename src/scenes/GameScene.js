@@ -16,7 +16,10 @@ class GameScene extends Phaser.Scene {
             frameWidth: 2404,
             frameHeight: 28,
           });
-        this.load.image('player', '../src/image/ninja.jpg');
+        this.load.spritesheet('player', '../src/image/run.png',{
+            frameHeight : 16,
+            frameWidth: 16,
+        });
         this.load.image('button', '../src/image/button.png');
     }
 

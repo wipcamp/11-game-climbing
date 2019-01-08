@@ -18,8 +18,8 @@ class GameScene extends Phaser.Scene {
 
 
     create() {
-        platform1 = phasers.physics.add.sprite(200, 120,'platform');
-        platform2 = phasers.physics.add.sprite(200, 120,'platform');
+        platform1 = phasers.physics.add.sprite(200, 1202,'platform');
+        platform2 = phasers.physics.add.sprite(200, 3606,'platform');
 
         platform1.setAngle(90)
         platform2.setAngle(90)
@@ -37,8 +37,8 @@ class GameScene extends Phaser.Scene {
 
         phasers.input.on('gameobjectdown', function (pointer) {
             console.log('on')
-            platform1.setVelocityY(-400)
-            platform2.setVelocityY(-400)
+            platform1.setVelocityY(400)
+            platform2.setVelocityY(400)
 
         });
 
@@ -49,12 +49,12 @@ class GameScene extends Phaser.Scene {
         
 
         if(cursors.left.isDown || cursors.right.isDown){
-            platform1.setVelocityY(-400);
-            platform2.setVelocityY(-400);
+            platform1.setVelocityY(400);
+            platform2.setVelocityY(400);
         }
-        else if(platform1.y<=-900){
-            platform1.y = 1202;
-            platform2.y = 3606;
+        else if(platform1.y>=0){
+            platform1.y = -1202;
+            platform2.y = 1202;
         }
 
     }
