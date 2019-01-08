@@ -1,5 +1,7 @@
 import Player from './core/player'
+import platform from './core/platform'
 
+let platforms
 let player
 class GameScene extends Phaser.Scene {
     constructor(test) {
@@ -10,6 +12,10 @@ class GameScene extends Phaser.Scene {
 
 
     preload() {
+        this.load.spritesheet('platform', '../src/image/ground.png', {
+            frameWidth: 2404,
+            frameHeight: 28,
+          });
         this.load.image('player', '../src/image/ninja.jpg');
         this.load.image('button', '../src/image/button.png');
     }
@@ -17,12 +23,16 @@ class GameScene extends Phaser.Scene {
     create() {
         player = new Player({ scene: this, })
         player.create()
+
+        platforms = new platform({scene:this,})
+        platforms.create()
+
         document.fullscreenElement
     }
 
     update() {
         player.update()
-
+        platforms.update()
     }
 }
 

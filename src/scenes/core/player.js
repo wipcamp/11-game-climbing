@@ -19,6 +19,7 @@ class GameScene extends Phaser.Scene {
 
 
     create() {
+
         player = phasers.physics.add.sprite(150, 120, 'player')
         button = phasers.physics.add.sprite(0,0,'button').setVisible(false);
         player.setScale(0.05);
@@ -33,6 +34,8 @@ class GameScene extends Phaser.Scene {
             button.x = pointer.x;
     
         });
+
+        player.setImmovable(true)
 
         cursors = phasers.input.keyboard.createCursorKeys();
         
