@@ -31,20 +31,28 @@ class GameScene extends Phaser.Scene {
         phasers.input.on('gameobjectdown', function (pointer) {
 
             button.x = pointer.x;
-            button.y = pointer.y;
     
         });
+
+        cursors = phasers.input.keyboard.createCursorKeys();
         
     }
 
 
     update() {
-        if(button.x<200){
+        console.log(player.x)
+        if(button.x<200 ||cursors.left.isDown ){
             player.x = 150;
+            button.x = 150;
+        }
+         if(button.x>=200||cursors.right.isDown){
+            player.x = 225;
+            button.x = 225;
         }
         else{
-            player.x = 225;
+            
         }
+        
     }
 }
 
