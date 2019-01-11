@@ -22,9 +22,9 @@ class GameScene extends Phaser.Scene {
 
     create() {
 
-        player = phasers.physics.add.sprite(150, 120, 'player').setScale(2);
-        player1 = phasers.physics.add.sprite(150, 120, 'player')
-        player2 = phasers.physics.add.sprite(225, 120, 'player')
+        player = phasers.physics.add.sprite(150, 200, 'player').setScale(2);
+        player1 = phasers.physics.add.sprite(150, 200, 'player')
+        player2 = phasers.physics.add.sprite(225, 200, 'player')
         button = phasers.physics.add.sprite(0,0,'button').setVisible(false);
         player1.setVisible(false);
         player2.setVisible(false);
@@ -57,7 +57,7 @@ class GameScene extends Phaser.Scene {
 
 
     update() {
-        console.log(player1.x)
+        
         if((button.x<200 && button.x != 0) ||cursors.left.isDown ){
             player2.setVisible(false);
             player2.setActive(false)

@@ -1,8 +1,10 @@
 import Player from './core/player'
 import platform from './core/platform'
+//import Obstracle from './core/obstracle'
 
 let platforms
 let player
+let obstracle
 class GameScene extends Phaser.Scene {
     constructor(test) {
         super({
@@ -21,6 +23,8 @@ class GameScene extends Phaser.Scene {
             frameWidth: 16,
         });
         this.load.image('button', '../src/image/button.png');
+
+        this.load.image('obstracle', '../src/image/weapon.png')
     }
 
     create() {
@@ -30,12 +34,16 @@ class GameScene extends Phaser.Scene {
         platforms = new platform({scene:this,})
         platforms.create()
 
+        //obstracle = new Obstracle({scene:this,})
+        //obstracle.create()
+
         document.fullscreenElement
     }
 
     update() {
         player.update()
         platforms.update()
+        //obstracle.update()
     }
 }
 
