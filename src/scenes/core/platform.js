@@ -34,6 +34,10 @@ class GameScene extends Phaser.Scene {
 
         obstracle1 = phasers.physics.add.image(215, 100, 'obstracle');
         obstracle1.setScale(0.03);
+        
+        obstracle2 = phasers.physics.add.image(215, 100, 'obstracle');
+        obstracle2.setScale(0.05);
+
 
         platform1 = phasers.physics.add.sprite(200, 1202, 'platform');
         platform2 = phasers.physics.add.sprite(200, 3606, 'platform');
@@ -54,6 +58,7 @@ class GameScene extends Phaser.Scene {
             platform1.setVelocityY(400)
             platform2.setVelocityY(400)
             obstracle1.setVelocityY(400)
+            obstracle2.setVelocityY(400)
             if (num > 0) {
                 score += 10;
                 scoreText.setText('Score: ' + score);
@@ -61,6 +66,7 @@ class GameScene extends Phaser.Scene {
                     platform1.setVelocityY(speed);
                     platform2.setVelocityY(speed);
                     obstracle1.setVelocityY(speed)
+                    obstracle2.setVelocityY(speed)
                     if (platform1.y >= 0) {
                         platform1.y = -1202;
                         platform2.y = 1202;
@@ -82,12 +88,17 @@ class GameScene extends Phaser.Scene {
 
         rotate -= 10;
         obstracle1.setAngle(rotate);
+        obstracle2.setAngle(rotate)
 
         if (random <= 5) {
+            obstracle1.setVisible(true)
             obstracle1.x = 185;
+            obstracle2.setVisible(false)
         }
         else {
-            obstracle1.x = 215;
+            obstracle2.setVisible(true)
+            obstracle2.x = 215;
+            obstracle1.setVisible(false)
         }
 
         if (cursors.left.isDown || cursors.right.isDown) {
@@ -95,6 +106,7 @@ class GameScene extends Phaser.Scene {
             platform1.setVelocityY(400);
             platform2.setVelocityY(400);
             obstracle1.setVelocityY(400)
+            obstracle2.setVelocityY(400)
             num += 1;
             if (num > 0) {
                 score += 10;
@@ -102,6 +114,7 @@ class GameScene extends Phaser.Scene {
                 if (score >= 1000) {
                     platform1.setVelocityY(speed);
                     platform2.setVelocityY(speed);
+                    obstracle1.setVelocityY(speed)
                     obstracle1.setVelocityY(speed)
 
                     if (platform1.y >= 0) {
@@ -120,6 +133,7 @@ class GameScene extends Phaser.Scene {
             if (score >= 1000) {
                 platform1.setVelocityY(speed);
                 platform2.setVelocityY(speed);
+                obstracle1.setVelocityY(speed)
                 obstracle1.setVelocityY(speed)
                 if (platform1.y >= 0) {
                     platform1.y = -1202;
@@ -141,6 +155,9 @@ class GameScene extends Phaser.Scene {
             random = Math.random() * 10;
             if(obstracle1.y>=500){
                 obstracle1.y = -100;
+            }
+            if(obstracle2.y>=500){
+                obstracle2.y = -100;
             }
         }
 
