@@ -50,9 +50,6 @@ class GameScene extends Phaser.Scene {
 
         obstracle1 = phasers.physics.add.image(platform1.x+50, 100, 'obstracle');
         obstracle1.setScale(0.03);
-        
-        obstracle2 = phasers.physics.add.image(215, 100, 'obstracle');
-        obstracle2.setScale(0.05);
 
         obstracle2 = phasers.physics.add.image(platform1.x-50, obstracle1.y+100*random, 'obstracle');
         obstracle2.setScale(0.03);
