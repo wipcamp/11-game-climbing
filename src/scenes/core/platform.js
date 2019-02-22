@@ -50,6 +50,9 @@ class GameScene extends Phaser.Scene {
 
         obstracle1 = phasers.physics.add.image(platform1.x+50, 100, 'obstracle');
         obstracle1.setScale(0.03);
+        
+        obstracle2 = phasers.physics.add.image(215, 100, 'obstracle');
+        obstracle2.setScale(0.05);
 
         obstracle2 = phasers.physics.add.image(platform1.x-50, obstracle1.y+100*random, 'obstracle');
         obstracle2.setScale(0.03);
@@ -72,6 +75,7 @@ class GameScene extends Phaser.Scene {
             platform1.setVelocityY(400)
             platform2.setVelocityY(400)
             obstracle1.setVelocityY(400)
+            obstracle2.setVelocityY(400)
             if (num > 0) {
                 score += 10;
                 scoreText.setText('Score: ' + score);
@@ -79,6 +83,7 @@ class GameScene extends Phaser.Scene {
                     platform1.setVelocityY(speed);
                     platform2.setVelocityY(speed);
                     obstracle1.setVelocityY(speed)
+                    obstracle2.setVelocityY(speed)
                     if (platform1.y >= 0) {
                         platform1.y = -1202;
                         platform2.y = 1202;
