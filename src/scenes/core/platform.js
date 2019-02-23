@@ -21,8 +21,9 @@ let scale
 let player
 let respon
 let topScore
-// try
 let lastScore = 0
+let bg
+let bg2
 
 
 class GameScene extends Phaser.Scene {
@@ -40,12 +41,19 @@ class GameScene extends Phaser.Scene {
 
     create() {
 
-        player = new Player({scene:phasers,})
+
+        
         
         respon = new Responsive()
         respon.check(phasers.scene.manager.game.config.height-200*scale, phasers.scene.manager.game.config.width)
-
         scale = respon.getScale();
+
+        bg = phasers.physics.add.sprite(respon.getPositionX(), phasers.scene.manager.game.config.height-200*scale-384*scale,'bgbamboo').setScale(1.5*scale)
+        bg2 = phasers.physics.add.sprite(respon.getPositionX(), bg.y-1152*scale,'bgbamboo').setScale(1.5*scale)
+    
+        player = new Player({scene:phasers,})
+
+        
         
         random = Math.random() * 10;
         
@@ -75,6 +83,8 @@ class GameScene extends Phaser.Scene {
             num += 1;
             platform1.setVelocityY(400)
             platform2.setVelocityY(400)
+            bg.setVelocityY(400/4)
+            bg2.setVelocityY(400/4)
             obstracle1.setVelocityY(400)
             obstracle2.setVelocityY(400)
             if (num > 0) {
@@ -83,6 +93,8 @@ class GameScene extends Phaser.Scene {
                 if (score >= 1000) {
                     platform1.setVelocityY(speed);
                     platform2.setVelocityY(speed);
+                    bg.setVelocityY(speed/4);
+                    bg2.setVelocityY(speed/4);
                     obstracle1.setVelocityY(speed)
                     obstracle2.setVelocityY(speed)
                     if (platform1.y >= 0) {
@@ -109,6 +121,8 @@ class GameScene extends Phaser.Scene {
         obstracle1.setAngle(0);
         platform1.setVelocityY(0)
         platform2.setVelocityY(0)
+        bg.setVelocityY(0)
+        bg2.setVelocityY(0)
         obstracle1.setVelocityY(0)
         obstracle2.setVelocityY(0)
     }
@@ -146,12 +160,17 @@ class GameScene extends Phaser.Scene {
         platform1.y = 1202;
         platform2.y = 3606;
 
+        bg.y = phasers.scene.manager.game.config.height-200*scale-384*scale;
+        bg2.y = bg.y-1152*scale;
+
         obstracle1.y = -1000;
         obstracle2.y = -1000;
         platform1.setVelocityY(400)
         platform2.setVelocityY(400)
         obstracle1.setVelocityY(400)
         obstracle2.setVelocityY(400)
+        bg.setVelocityY(400/4)
+        bg2.setVelocityY(400/4)
 
         random = Math.random() * 10;
 
@@ -192,6 +211,8 @@ class GameScene extends Phaser.Scene {
 
             platform1.setVelocityY(400);
             platform2.setVelocityY(400);
+            bg.setVelocityY(400/4);
+            bg2.setVelocityY(400/4);
             obstracle1.setVelocityY(400)
             obstracle2.setVelocityY(400)
             num += 1;
@@ -201,6 +222,8 @@ class GameScene extends Phaser.Scene {
                 if (score >= 1000) {
                     platform1.setVelocityY(speed);
                     platform2.setVelocityY(speed);
+                    bg.setVelocityY(speed/4);
+                    bg2.setVelocityY(speed/4);
                     obstracle1.setVelocityY(speed)
                     obstracle2.setVelocityY(speed)
 
@@ -233,6 +256,14 @@ class GameScene extends Phaser.Scene {
         if (platform1.y >= 0) {
             platform1.y = -1202;
             platform2.y = 1202;
+        }
+
+        if(bg.y>=phasers.scene.manager.game.config.height+384){
+            bg.y = bg2.y-1152*scale
+        }
+
+        if(bg2.y>=phasers.scene.manager.game.config.height+384){
+            bg2.y = bg.y-1152*scale
         }
 
 

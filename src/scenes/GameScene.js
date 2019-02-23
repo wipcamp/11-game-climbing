@@ -5,6 +5,7 @@ let player
 let obstracle
 let bgsound
 let loop
+let bg
 class GameScene extends Phaser.Scene {
     constructor(test) {
         super({
@@ -14,6 +15,10 @@ class GameScene extends Phaser.Scene {
 
 
     preload() {
+
+        this.load.image('bg','../src/image/bg.png')
+
+        this.load.image('bgbamboo','../src/image/bgbamboo.png')
 
         this.load.audio('bgsound', '../src/image/bgsound.mp3',{
             mute: false,
@@ -70,6 +75,9 @@ class GameScene extends Phaser.Scene {
     }
 
     create() {
+
+        
+        bg = this.physics.add.staticImage(this.scene.manager.game.config.width/2,this.scene.manager.game.config.height/2,'bg').setScale(1.5)
         
 
         player = new Player({ scene: this, })
