@@ -76,8 +76,8 @@ class GameScene extends Phaser.Scene {
             player.setActive(false);
         });
 
-        colider1 = phasers.physics.add.overlap(platform.getObstracle1(),player1,hit)
-        colider2 = phasers.physics.add.overlap(platform.getObstracle2(),player1,hit)
+        /*colider1 = phasers.physics.add.overlap(platform.getObstracle1(),player1,hit)
+        colider2 = phasers.physics.add.overlap(platform.getObstracle2(),player1,hit)*/
 
         popUp = new PopUp({scene:phasers,})
         popUp.create();

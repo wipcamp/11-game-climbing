@@ -49,7 +49,7 @@ class GameScene extends Phaser.Scene {
         respon.check(window.screen.height-20/100*window.screen.height, window.screen.width)
         scale = respon.getScale();
 
-        bg = phasers.add.image(respon.getPositionX(),respon.getPositionY(),'leaderbg').setVisible(false).setScale(0.75*scale)
+        bg = phasers.add.image(respon.getPositionX(),respon.getPositionY(),'leaderbg').setVisible(false).setScale(scale)
 
         frontbg = phasers.add.image(respon.getPositionX(),respon.getPositionY()+50*scale,'leader').setScale(0.15*scale).setVisible(false)
 

@@ -179,7 +179,7 @@ class GameScene extends Phaser.Scene {
 
     update() {
 
-        //obstracle2.y = obstracle1.y-100*random-200
+       console.log(random)
 
 
         if (random < 4) {
@@ -193,7 +193,6 @@ class GameScene extends Phaser.Scene {
             if(obstracle2.y>=phasers.scene.manager.game.config.height){
                 obstracle1.x = phasers.scene.manager.game.config.height
                 obstracle2.y = obstracle1.y-100*scale*random-200*scale;
-            obstracle2.x = platform1.x-50*scale;
             }
             
         }
@@ -258,11 +257,11 @@ class GameScene extends Phaser.Scene {
             platform2.y = 1202;
         }
 
-        if(bg.y>=phasers.scene.manager.game.config.height+384){
+        if(bg.y>=phasers.scene.manager.game.config.height+584*scale){
             bg.y = bg2.y-1152*scale
         }
 
-        if(bg2.y>=phasers.scene.manager.game.config.height+384){
+        if(bg2.y>=phasers.scene.manager.game.config.height+584*scale){
             bg2.y = bg.y-1152*scale
         }
 

@@ -131,10 +131,7 @@ class GameScene extends Phaser.Scene {
 
     update() {
 
-        console.log("eiei"+platform.getLastScore())
-
         score = platform.getLastScore()
-        console.log("score:"+score)
 
     }
 }
