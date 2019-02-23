@@ -45,26 +45,28 @@ class GameScene extends Phaser.Scene {
         respon = new Responsive()
         respon.check(phasers.scene.manager.game.config.height-200*scale, phasers.scene.manager.game.config.width)
 
+        scale = respon.getScale();
+
         foot1 = phasers.sound.add('foot1')
         foot2 = phasers.sound.add('foot2')
 
         platform = new Platform({scene:phasers,})
         platform.create();
 
-        player = phasers.physics.add.sprite(platform.getPlayerPosition()-50, phasers.scene.manager.game.config.height-50, 'player').setScale(2);
-        player1 = phasers.physics.add.sprite(platform.getPlayerPosition()+50, phasers.scene.manager.game.config.height-50, 'player')
+        player = phasers.physics.add.sprite(platform.getPlayerPosition()-50*scale, phasers.scene.manager.game.config.height-50*scale, 'player').setScale(0.045*scale).setAngle(-90);
+        player1 = phasers.physics.add.sprite(platform.getPlayerPosition()+50*scale, phasers.scene.manager.game.config.height-50*scale, 'player').setAngle(-90)
         button = phasers.physics.add.sprite(0,0,'button').setVisible(false);
         player1.setVisible(false);
         player1.setActive(false);
-        player1.setScale(2);
+        player1.setScale(0.045*scale);
 
         leftzone = phasers.add.zone(0, 0, respon.getPositionX() * 2, phasers.scene.manager.game.config.height).setOrigin(0).setName('left').setInteractive()
         console.log(respon.getPositionY())
 
         phasers.anims.create({
             key: 'run',
-            frames: phasers.anims.generateFrameNumbers('player', { start: 1, end: 2 }),
-            frameRate: 50,
+            frames: phasers.anims.generateFrameNumbers('player', { start: 0, end: 2}),
+            frameRate: 10,
             repeat: -1,
           });
 
@@ -97,6 +99,8 @@ class GameScene extends Phaser.Scene {
 
     update() {
 
+        popUp.update()
+
         platform.update();
 
         if(gameover == true){
@@ -107,20 +111,20 @@ class GameScene extends Phaser.Scene {
         }
         
         if((button.x<phasers.scene.manager.game.config.width/2 && button.x != 0) ||cursors.left.isDown&&click ==true ){
-            player1.setVisible(true);
+            player1.setVisible(true).setAngle(-90);
             player1.setActive(true)
             player.setVisible(false);
             player.setActive(false);
-            player1.x = platform.getPlayerPosition()-50;
+            player1.x = platform.getPlayerPosition()-55*scale;
             button.x = 100;       
         }
          if((button.x>=phasers.scene.manager.game.config.width/2 && button.x != 0)||cursors.right.isDown&& click == true){
-            player1.setVisible(true);
+            player1.setVisible(true).setAngle(90);
             player1.setActive(true)
             player.setVisible(false);
             player.setActive(false);
-            player1.x = platform.getPlayerPosition()+50;
-            button.x = phasers.scene.manager.game.config.width-100;
+            player1.x = platform.getPlayerPosition()+55*scale;
+            button.x = phasers.scene.manager.game.config.width-100*scale;
         }
 
         

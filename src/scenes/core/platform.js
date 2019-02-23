@@ -1,6 +1,7 @@
 import 'phaser';
 import Responsive from './responsive'
 import Player from './player'
+import { last } from 'rxjs/operator/last';
 
 let phasers
 let zone
@@ -19,6 +20,9 @@ let rotate = 0
 let scale
 let player
 let respon
+let topScore
+// try
+let lastScore = 0
 
 
 class GameScene extends Phaser.Scene {
@@ -45,14 +49,14 @@ class GameScene extends Phaser.Scene {
         
         random = Math.random() * 10;
         
-        platform1 = phasers.physics.add.sprite(respon.getPositionX(), 1202, 'platform').setScale(1);
-        platform2 = phasers.physics.add.sprite(respon.getPositionX(), 3606, 'platform').setScale(1);
+        platform1 = phasers.physics.add.sprite(respon.getPositionX(), 1202, 'platform').setScale(scale);
+        platform2 = phasers.physics.add.sprite(respon.getPositionX(), 3606, 'platform').setScale(scale);
 
-        obstracle1 = phasers.physics.add.image(platform1.x+50, 100, 'obstracle');
-        obstracle1.setScale(0.03);
+        obstracle1 = phasers.physics.add.image(platform1.x+50*scale, 100, 'obstracle');
+        obstracle1.setScale(0.05*scale);
 
-        obstracle2 = phasers.physics.add.image(platform1.x-50, obstracle1.y+100*random, 'obstracle');
-        obstracle2.setScale(0.03);
+        obstracle2 = phasers.physics.add.image(platform1.x-50*scale, obstracle1.y+100*random, 'obstracle2');
+        obstracle2.setScale(0.05*scale);
 
         
 
@@ -93,9 +97,13 @@ class GameScene extends Phaser.Scene {
         scoreText = phasers.add.text(16, 16, 'score: 0', { fontSize: '10px', fill: '#FFFFFF' });
 
         cursors = phasers.input.keyboard.createCursorKeys();
+
+        topScore = phasers.add.text(respon.getPositionX()*2-190*scale, 16, 'topScore:', { fontSize: '10px', fill: '#FFFFFF' });
+        //topScore.setScale(scale)
     }
 
     gameOver(){
+        lastScore = score
         num = 0;
         num -= 10;
         obstracle1.setAngle(0);
@@ -103,6 +111,18 @@ class GameScene extends Phaser.Scene {
         platform2.setVelocityY(0)
         obstracle1.setVelocityY(0)
         obstracle2.setVelocityY(0)
+    }
+
+    getLastScore(){
+        return lastScore;
+    }
+
+    offTopscore(){
+        topScore.setVisible(false)
+    }
+
+    onTopscore(){
+        topScore.setVisible(true)
     }
 
     getObstracle1(){
@@ -127,9 +147,7 @@ class GameScene extends Phaser.Scene {
         platform2.y = 3606;
 
         obstracle1.y = -1000;
-        obstracle1.setAngle(rotate);
         obstracle2.y = -1000;
-        obstracle2.setAngle(rotate);
         platform1.setVelocityY(400)
         platform2.setVelocityY(400)
         obstracle1.setVelocityY(400)
@@ -142,25 +160,33 @@ class GameScene extends Phaser.Scene {
 
     update() {
 
-        obstracle2.y = obstracle1.y-100*random-200
+        //obstracle2.y = obstracle1.y-100*random-200
 
-        rotate -= 10;
-        obstracle1.setAngle(rotate);
-        obstracle2.setAngle(rotate);
 
-        if (random <= 5) {
-            obstracle1.x = platform1.x+50;
-            obstracle2.x = platform1.x-50;
+        if (random < 4) {
+            obstracle1.x = platform1.x+50*scale;
+            obstracle2.x = platform1.x-50*scale;
+            obstracle2.y = obstracle1.y-100*random*scale-200*scale
         }
-        else if (random > 5&&random <=7) {
-            obstracle1.x = platform1.x+50;
-            obstracle2.x = platform1.x+50;
+        else if(random>=4&&random<7){
+            obstracle2.y = obstracle1.y-100*random*scale-200*scale;
+            obstracle2.x = platform1.x-50*scale;
+            if(obstracle2.y>=phasers.scene.manager.game.config.height){
+                obstracle1.x = phasers.scene.manager.game.config.height
+                obstracle2.y = obstracle1.y-100*scale*random-200*scale;
+            obstracle2.x = platform1.x-50*scale;
+            }
+            
         }
         else {
-            obstracle2.x = platform1.x+50;
-            obstracle1.x = platform1.x-50;
+            obstracle2.x = platform1.x-50*scale;
+            obstracle1.y = obstracle2.y-100*random*scale-200*scale;
+            if(obstracle2.y>=phasers.scene.manager.game.config.height){
+                obstracle2.x = phasers.scene.manager.game.config.height
+                obstracle1.y = obstracle1.y-100*random*scale-200*scale;            
 
         }
+    }
 
         if (cursors.left.isDown || cursors.right.isDown) {
 
@@ -212,16 +238,17 @@ class GameScene extends Phaser.Scene {
 
         if (score >= 1000 + (count * 1000)) {
             count += 1
-            speed = 400 + (count * 10)
+            speed = 500 + (count * 10)
         }
 
-        if(obstracle1.y>=phasers.scene.manager.game.config.height&&obstracle2.y>=phasers.scene.manager.game.config.height){
+        if(obstracle1.y>=phasers.scene.manager.game.config.height+100&&obstracle2.y>=phasers.scene.manager.game.config.height+100){
             random = Math.random() * 10;
-            obstracle1.y = -100 -random*100;
+            obstracle1.y = -100*scale -random*100*scale;
             //obstracle2.y = obstracle1.y-100*random
         }
 
-        console.log(phasers.scene.manager.game.config.height)
+        lastScore = score;
+
 
 
 
