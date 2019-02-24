@@ -1,5 +1,5 @@
 import Player from './core/player'
-
+import Responsive from './core/responsive'
 
 let player
 let obstracle
@@ -7,6 +7,11 @@ let bgsound
 let loop
 let bg
 let bgSound
+let howto
+let bghowto
+let respon
+let scale
+
 class GameScene extends Phaser.Scene {
     constructor(test) {
         super({
@@ -18,6 +23,10 @@ class GameScene extends Phaser.Scene {
      preload() {
 
         this.load.image('bg','../src/image/bg.png')
+
+        this.load.image('howto','../src/image/howto.png')
+
+        this.load.image('bghowto','../src/image/bghowto.png')
 
         this.load.image('bgbamboo','../src/image/bgbamboo.png')
 
@@ -115,8 +124,14 @@ class GameScene extends Phaser.Scene {
 
     create() {
 
+        let respon =new Responsive()
+        respon.check(window.screen.height-20/100*window.screen.height, window.screen.width)
+        scale = respon.getScale();
+
         
-        bg = this.physics.add.staticImage(this.scene.manager.game.config.width/2,this.scene.manager.game.config.height/2,'bg').setScale(1.5)
+        bg = this.physics.add.staticImage(this.scene.manager.game.config.width/2,this.scene.manager.game.config.height/2,'bg').setScale(2)
+
+        
         
 
         player = new Player({ scene: this, })
@@ -136,7 +151,14 @@ class GameScene extends Phaser.Scene {
         bgsound.play();
 
         
+
         
+        bghowto = this.physics.add.staticImage(this.scene.manager.game.config.width/2,this.scene.manager.game.config.height/2,'bghowto').setScale(2).setInteractive()
+        howto = this.physics.add.staticImage(this.scene.manager.game.config.width/2,this.scene.manager.game.config.height/2,'howto').setScale(scale)
+        bghowto.on ('pointerup', () => { 
+            howto.setVisible(false)
+            bghowto.setVisible(false)
+        });
     }
 
     update() {
