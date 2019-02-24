@@ -107,11 +107,11 @@ class GameScene extends Phaser.Scene {
             }
         });
 
-        scoreText = phasers.add.text(16, 16, 'score: 0', { fontSize: 35*scale, fill: '#372f2d' });
+        scoreText = phasers.add.text(16, 16, 'score: 0', { fontSize: 30*scale, fill: '#372f2d' });
         //scoreText.setScale(scale)
         cursors = phasers.input.keyboard.createCursorKeys();
 
-        topScore = phasers.add.text(respon.getPositionX() * 2 - 300 * scale, 16, 'topScore:', { fontSize: 35*scale, fill: '#372f2d' });
+        topScore = phasers.add.text(respon.getPositionX() * 2 - 300 * scale, 16, 'topScore:', { fontSize: 30*scale, fill: '#372f2d' });
         //topScore.setScale(scale)
     }
 
