@@ -219,9 +219,9 @@ class GameScene extends Phaser.Scene {
             obstracle2.setVelocityY(400)
             num += 1;
             if (num > 0) {
-                score += 10;
+                score += 1;
                 scoreText.setText('Score: ' + score);
-                if (score >= 1000) {
+                if (score >= 100) {
                     platform1.setVelocityY(speed);
                     platform2.setVelocityY(speed);
                     bg.setVelocityY(speed/4);
@@ -240,9 +240,9 @@ class GameScene extends Phaser.Scene {
 
         else if (num > 0) {
 
-            score += 10;
+            score += 1;
             scoreText.setText('Score: ' + score);
-            if (score >= 1000) {
+            if (score >= 100) {
                 platform1.setVelocityY(speed);
                 platform2.setVelocityY(speed);
                 obstracle1.setVelocityY(speed)
@@ -269,7 +269,7 @@ class GameScene extends Phaser.Scene {
         }
 
 
-        if (score >= 1000 + (count * 1000)) {
+        if (score >= 100 + (count * 100)) {
             count += 1
             speed = 500 + (count * 10)
         }
