@@ -81,14 +81,14 @@ class GameScene extends Phaser.Scene {
 
         axios.get(`https://game.service.wip.camp/api/janpu3score`).then(res=>{
             console.log(`${res.data}`)
-            st = phasers.add.text(frontbg.x-200*scale,frontbg.y-82*scale, `${res.data[0].player_name}:${res.data[0].score}`, { fontSize: 30*scale, fill: '#372f2d' });
-            st.setScale(scale).setVisible(false)
+            st = phasers.add.text(frontbg.x-200*scale,frontbg.y-82*scale, `${res.data[0].player_name}:${res.data[0].score}`, { fontSize: 35*scale, fill: '#372f2d' });
+            st.setVisible(false)
     
-            nd = phasers.add.text(frontbg.x-200*scale,frontbg.y-10*scale, `${res.data[1].player_name}:${res.data[1].score}`, { fontSize: 30*scale, fill: '#372f2d' });
-            nd.setScale(scale).setVisible(false)
+            nd = phasers.add.text(frontbg.x-200*scale,frontbg.y-10*scale, `${res.data[1].player_name}:${res.data[1].score}`, { fontSize: 35*scale, fill: '#372f2d' });
+            nd.setVisible(false)
     
-            rd = phasers.add.text(frontbg.x-200*scale,frontbg.y+57*scale, `${res.data[2].player_name}:${res.data[2].score}`, { fontSize: 30*scale, fill: '#372f2d' });
-            rd.setScale(scale).setVisible(false)
+            rd = phasers.add.text(frontbg.x-200*scale,frontbg.y+57*scale, `${res.data[2].player_name}:${res.data[2].score}`, { fontSize: 35*scale, fill: '#372f2d' });
+            rd.setVisible(false)
         })
      
 
