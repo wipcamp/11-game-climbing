@@ -76,14 +76,34 @@ class GameScene extends Phaser.Scene {
             player.setActive(false);
         });
 
-        /*colider1 = phasers.physics.add.overlap(platform.getObstracle1(),player1,hit)
-        colider2 = phasers.physics.add.overlap(platform.getObstracle2(),player1,hit)*/
+        colider1 = phasers.physics.add.overlap(platform.getObstracle1(),player1,hit)
+        colider2 = phasers.physics.add.overlap(platform.getObstracle2(),player1,hit)
 
         popUp = new PopUp({scene:phasers,})
         popUp.create();
 
             cursors = phasers.input.keyboard.createCursorKeys();
             player1.anims.play('run')
+
+            foot1 = phasers.sound.add('foot1',{
+                mute: false,
+                volume: 4,
+                rate: 1,
+                detune: 0,
+                seek: 0,
+                loop: false,
+                delay: 0
+            });
+    
+            foot2 = phasers.sound.add('foot2',{
+                mute: false,
+                volume: 4,
+                rate: 1,
+                detune: 0,
+                seek: 0,
+                loop: false,
+                delay: 0
+            });
         
     }
 
@@ -116,7 +136,8 @@ class GameScene extends Phaser.Scene {
             player.setVisible(false);
             player.setActive(false);
             player1.x = platform.getPlayerPosition()-55*scale;
-            button.x = 100;       
+            button.x = 100;   
+            foot1.play()    
         }
          if((button.x>=phasers.scene.manager.game.config.width/2 && button.x != 0)||cursors.right.isDown&& click == true){
             player1.setVisible(true).setAngle(90);
@@ -125,6 +146,7 @@ class GameScene extends Phaser.Scene {
             player.setActive(false);
             player1.x = platform.getPlayerPosition()+55*scale;
             button.x = phasers.scene.manager.game.config.width-100*scale;
+            foot2.play()
         }
 
         

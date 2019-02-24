@@ -73,7 +73,7 @@ class GameScene extends Phaser.Scene {
             st.setVisible(false)
             nd.setVisible(false)
             rd.setVisible(false)
-            /*die.play()*/
+            die.play()
             platform.onTopscore()
         });
 

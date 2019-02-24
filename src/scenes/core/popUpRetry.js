@@ -61,7 +61,7 @@ class GameScene extends Phaser.Scene {
             player.restart();
             platform.restart();
             platform.update();
-            //die.play()
+            die.play()
         });
 
 
@@ -84,13 +84,13 @@ class GameScene extends Phaser.Scene {
           gamecenter = phasers.add.image(respon.getPositionX(),respon.getPositionY()+respon.getPositionY()-40,'gamecenter').setScale(scale*0.5).setVisible(false)
           gamecenter.setInteractive();
   
-          gamecenter.on('pointerup', () => { /*die.play()*/
+          gamecenter.on('pointerup', () => { die.play()
             location.href="http://wip.camp/game"
         });
 
           leader = new Leader({ scene: phasers, });
           
-          share.on('pointerup', () => {  leader.click(); /*die.play();*/platform.offTopscore()});
+          share.on('pointerup', () => {  leader.click(); die.play();platform.offTopscore()});
           leader.create()
 
           cursors = phasers.input.keyboard.createCursorKeys();
@@ -116,7 +116,7 @@ class GameScene extends Phaser.Scene {
             player.restart();
             platform.restart();
             platform.update();
-            //die.play()
+            die.play()
         }
     }
 
