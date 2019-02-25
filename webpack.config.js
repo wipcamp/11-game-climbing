@@ -3,6 +3,7 @@ var webpack = require('webpack')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 // Phaser webpack config
 var phaserModule = path.join(__dirname, '/node_modules/phaser/')
@@ -23,19 +24,20 @@ module.exports = {
     },
     devtool: 'cheap-source-map',
     output: {
-      pathinfo: true,
+        pathinfo: true,
         path: path.resolve(__dirname, 'dev'),
         publicPath: './dev/',
         library: '[name]',
         libraryTarget: 'umd',
         filename: '[name].js'
     },
-    watch: true, 
+    watch: true,
     plugins: [
         definePlugin,
+        new Dotenv(),
         //new webpack.optimize.CommonsChunkPlugin({ name: 'vendor'/* chunkName= */, filename: 'vendor.bundle.js'/* filename= */ }),
         new HtmlWebpackPlugin({
-            filename: '../index.html',
+            filename: './index.html',
             template: './src/index.html',
             chunks: ['vendor', 'app'],
             chunksSortMode: 'manual',
@@ -53,11 +55,11 @@ module.exports = {
         }),
         new BrowserSyncPlugin({
             host: process.env.IP || 'localhost',
-            port: process.env.PORT || 3000,
+            port: process.env.PORT || 3006,
             server: {
-                baseDir: ['./', './dev']
+              baseDir: ['./', './dev']
             }
-        })
+          })
     ],
     module: {
         rules: [
@@ -66,14 +68,14 @@ module.exports = {
             { test: [/\.vert$/, /\.frag$/], use: 'raw-loader' }
         ]
     },
-   /* node: {
-        fs: 'empty',
-        net: 'empty',
-        tls: 'empty'
-    },
-    resolve: {
-        alias: {
-            'phaser': phaser,
-        }
-    }*/
+    /* node: {
+         fs: 'empty',
+         net: 'empty',
+         tls: 'empty'
+     },
+     resolve: {
+         alias: {
+             'phaser': phaser,
+         }
+     }*/
 }
