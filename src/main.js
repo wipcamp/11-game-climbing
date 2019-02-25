@@ -1,5 +1,6 @@
 import 'phaser';
 import GameScene from './scenes/GameScene';
+import Preload from './scenes/Preload';
 
 const config = {
     type: Phaser.WEBGL,
@@ -16,6 +17,7 @@ const config = {
         }
     },
     scene: [
+        Preload,
         GameScene
     ]
 };
