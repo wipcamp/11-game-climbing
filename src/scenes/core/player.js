@@ -2,6 +2,7 @@ import 'phaser';
 import Platform from './platform'
 import PopUp from './popUpRetry'
 import Responsive from './responsive'
+import Axios from 'axios';
 
 let phasers
 let leftzone
@@ -111,6 +112,8 @@ class GameScene extends Phaser.Scene {
         popUp.getPopUp().setVisible(false);
         popUp.getRetry().setVisible(false);
         gameover = false;
+        player1.body.enable=true
+        player.body.enable=true
         click = true;
     }
 
@@ -154,8 +157,15 @@ class GameScene extends Phaser.Scene {
 }
 
 function hit(){
-    console.log('hit')
+    player1.body.enable=false
+    player.body.enable=false
+   let endScore = {
+    player_name:'wippo',
+    score:platform.getLastScore()
+   }
+    Axios.post(`https://game.service.wip.camp/api/climbing`,endScore)
     gameover = true;
+
 }
 
 export default GameScene;

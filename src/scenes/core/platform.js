@@ -1,7 +1,7 @@
 import 'phaser';
 import Responsive from './responsive'
 import Player from './player'
-import { last } from 'rxjs/operator/last';
+import Axios from 'axios';
 
 let phasers
 let zone
@@ -111,8 +111,10 @@ class GameScene extends Phaser.Scene {
         //scoreText.setScale(scale)
         cursors = phasers.input.keyboard.createCursorKeys();
 
-        topScore = phasers.add.text(respon.getPositionX() * 2 - 300 * scale, 16, 'topScore:', { fontSize: 30*scale, fill: '#372f2d' });
         //topScore.setScale(scale)
+        Axios.get(`https://game.service.wip.camp/api/climbing`).then(res=>{
+            topScore = phasers.add.text(respon.getPositionX() * 2 - 300 * scale, 16, `topScore:${res.data.score}`, { fontSize: 30*scale, fill: '#372f2d' });
+        })
     }
 
     gameOver() {
@@ -176,13 +178,14 @@ class GameScene extends Phaser.Scene {
         random = Math.random() * 10;
 
         score = 0;
-
+        Axios.get(`https://game.service.wip.camp/api/climbing`).then(res=>{
+            topScore.setText(`topScore:${res.data.score}`)
+        })
         
     }
 
     update() {
 
-       console.log(random)
 
 
         if (random < 6) {
