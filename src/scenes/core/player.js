@@ -117,7 +117,7 @@ class GameScene extends Phaser.Scene {
             button.x = phasers.scene.manager.game.config.width-100*scale;
             howto.setVisible(false)
             bghowto.setVisible(false)
-            console.log("right")
+            foot2.play()
         });
 
         
@@ -130,9 +130,9 @@ class GameScene extends Phaser.Scene {
             player.setActive(false);
             player1.x = platform.getPlayerPosition()-55*scale;
             button.x = 100; 
-            console.log("left")
             howto.setVisible(false)
             bghowto.setVisible(false)
+            foot1.play()
         });
 
         popUp = new PopUp({scene:phasers,})
