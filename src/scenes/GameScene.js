@@ -11,6 +11,8 @@ let howto
 let bghowto
 let respon
 let scale
+let cursors
+let person
 
 class GameScene extends Phaser.Scene {
     constructor(test) {
@@ -120,6 +122,7 @@ class GameScene extends Phaser.Scene {
          });
 
          this.load.image('gameover','../src/image/gameover.jpg')
+
      }
 
     create() {
@@ -132,10 +135,10 @@ class GameScene extends Phaser.Scene {
         bg = this.physics.add.staticImage(this.scene.manager.game.config.width/2,this.scene.manager.game.config.height/2,'bg').setScale(2)
 
         
-        
 
         player = new Player({ scene: this, })
         player.create()
+        player.setName(person)
 
         document.fullscreenElement
 
@@ -150,15 +153,10 @@ class GameScene extends Phaser.Scene {
         });
         bgsound.play();
 
-        
 
-        
-        bghowto = this.physics.add.staticImage(this.scene.manager.game.config.width/2,this.scene.manager.game.config.height/2,'bghowto').setScale(2).setInteractive()
-        howto = this.physics.add.staticImage(this.scene.manager.game.config.width/2,this.scene.manager.game.config.height/2,'howto').setScale(scale)
-        bghowto.on ('pointerup', () => { 
-            howto.setVisible(false)
-            bghowto.setVisible(false)
-        });
+        cursors = this.input.keyboard.createCursorKeys();
+
+        person = prompt("Please enter your name:", "Wippo");
     }
 
     update() {

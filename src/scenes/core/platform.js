@@ -78,8 +78,6 @@ class GameScene extends Phaser.Scene {
         platform1.body.allowGravity = false;
         platform2.body.allowGravity = false;
 
-        zone = phasers.add.zone(0, 0, 1260, 560).setOrigin(0).setName('zone').setInteractive();
-
         phasers.input.on('gameobjectdown', function (pointer) {
             num += 1;
             platform1.setVelocityY(400)
