@@ -12,6 +12,7 @@ let bghowto
 let respon
 let scale
 let cursors
+let person
 
 class GameScene extends Phaser.Scene {
     constructor(test) {
@@ -138,6 +139,7 @@ class GameScene extends Phaser.Scene {
 
         player = new Player({ scene: this, })
         player.create()
+        player.setName(person)
 
         document.fullscreenElement
 
@@ -163,6 +165,8 @@ class GameScene extends Phaser.Scene {
         });
 
         cursors = this.input.keyboard.createCursorKeys();
+
+        person = prompt("Please enter your name:", "Wippo");
     }
 
     update() {

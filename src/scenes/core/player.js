@@ -114,6 +114,10 @@ class GameScene extends Phaser.Scene {
         click = true;
     }
 
+    setName(person){
+        name=person
+    }
+
     
 
 
