@@ -22,6 +22,8 @@ let colider1
 let colider2
 let respon
 let scale
+let howto
+let bghowto
 
 
 class GameScene extends Phaser.Scene {
@@ -54,36 +56,32 @@ class GameScene extends Phaser.Scene {
         platform.create();
 
         player = phasers.physics.add.sprite(platform.getPlayerPosition()-50*scale, phasers.scene.manager.game.config.height-50*scale, 'player').setScale(0.045*scale).setAngle(-90);
-        player1 = phasers.physics.add.sprite(platform.getPlayerPosition()+50*scale, phasers.scene.manager.game.config.height-50*scale, 'player').setAngle(-90)
+        player1 = phasers.physics.add.sprite(platform.getPlayerPosition()+50*scale, phasers.scene.manager.game.config.height-50*scale, 'player1').setAngle(-90)
         button = phasers.physics.add.sprite(0,0,'button').setVisible(false);
         player1.setVisible(false);
         player1.setActive(false);
         player1.setScale(0.045*scale);
 
-        leftzone = phasers.add.zone(0, 0, respon.getPositionX() * 2, phasers.scene.manager.game.config.height).setOrigin(0).setName('left').setInteractive()
-        console.log(respon.getPositionY())
-
         phasers.anims.create({
             key: 'run',
-            frames: phasers.anims.generateFrameNumbers('player', { start: 0, end: 2}),
+            frames: phasers.anims.generateFrameNumbers('player', { start: 0, end: 1}),
             frameRate: 10,
             repeat: -1,
           });
 
-        phasers.input.on('gameobjectdown', function (pointer) {
-            button.x = pointer.x;   
-            player.setVisible(false);
-            player.setActive(false);
-        });
+          phasers.anims.create({
+            key: 'run1',
+            frames: phasers.anims.generateFrameNumbers('player', { start: 2, end: 3}),
+            frameRate: 10,
+            repeat: -1,
+          });
+
 
         colider1 = phasers.physics.add.overlap(platform.getObstracle1(),player1,hit)
         colider2 = phasers.physics.add.overlap(platform.getObstracle2(),player1,hit)
 
-        popUp = new PopUp({scene:phasers,})
-        popUp.create();
 
             cursors = phasers.input.keyboard.createCursorKeys();
-            player1.anims.play('run')
 
             foot1 = phasers.sound.add('foot1',{
                 mute: false,
@@ -104,6 +102,41 @@ class GameScene extends Phaser.Scene {
                 loop: false,
                 delay: 0
             });
+
+            bghowto = phasers.physics.add.staticImage(phasers.scene.manager.game.config.width/2,phasers.scene.manager.game.config.height/2,'bghowto').setScale(2)
+            howto = phasers.physics.add.staticImage(phasers.scene.manager.game.config.width/2,phasers.scene.manager.game.config.height/2,'howto').setScale(scale)
+
+            rightzone = phasers.add.zone(0, 0, respon.getPositionX()*2, phasers.scene.manager.game.config.height).setOrigin(0).setName('right').setInteractive()
+            rightzone.on ('pointerdown', () => { 
+            player1.anims.play('run1')
+            player1.setVisible(true).setAngle(90);
+            player1.setActive(true)
+            player.setVisible(false);
+            player.setActive(false);
+            player1.x = platform.getPlayerPosition()+55*scale;
+            button.x = phasers.scene.manager.game.config.width-100*scale;
+            howto.setVisible(false)
+            bghowto.setVisible(false)
+            console.log("right")
+        });
+
+        
+        leftzone = phasers.add.zone(0, 0, respon.getPositionX()-100*scale, phasers.scene.manager.game.config.height).setOrigin(0).setName('left').setInteractive()
+        leftzone.on ('pointerdown', () => { 
+            player1.anims.play('run')
+            player1.setVisible(true).setAngle(-90);
+            player1.setActive(true)
+            player.setVisible(false);
+            player.setActive(false);
+            player1.x = platform.getPlayerPosition()-55*scale;
+            button.x = 100; 
+            console.log("left")
+            howto.setVisible(false)
+            bghowto.setVisible(false)
+        });
+
+        popUp = new PopUp({scene:phasers,})
+        popUp.create();
         
     }
 
@@ -141,7 +174,7 @@ class GameScene extends Phaser.Scene {
             player.setActive(false);
             player1.x = platform.getPlayerPosition()-55*scale;
             button.x = 100;   
-            foot1.play()    
+            
         }
          if((button.x>=phasers.scene.manager.game.config.width/2 && button.x != 0)||cursors.right.isDown&& click == true){
             player1.setVisible(true).setAngle(90);
@@ -150,8 +183,23 @@ class GameScene extends Phaser.Scene {
             player.setActive(false);
             player1.x = platform.getPlayerPosition()+55*scale;
             button.x = phasers.scene.manager.game.config.width-100*scale;
+            
+        }
+
+        if(cursors.left.isDown){
+            player1.anims.play('run') 
+            foot1.play()
+        }
+        if(cursors.right.isDown){
+            player1.anims.play('run1') 
             foot2.play()
         }
+
+        if(cursors.left.isDown || cursors.right.isDown){
+            howto.setVisible(false)
+            bghowto.setVisible(false)
+        }
+           
 
         
     }

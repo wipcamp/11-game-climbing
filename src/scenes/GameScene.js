@@ -135,7 +135,6 @@ class GameScene extends Phaser.Scene {
         bg = this.physics.add.staticImage(this.scene.manager.game.config.width/2,this.scene.manager.game.config.height/2,'bg').setScale(2)
 
         
-        
 
         player = new Player({ scene: this, })
         player.create()
@@ -154,15 +153,6 @@ class GameScene extends Phaser.Scene {
         });
         bgsound.play();
 
-        
-
-        
-        bghowto = this.physics.add.staticImage(this.scene.manager.game.config.width/2,this.scene.manager.game.config.height/2,'bghowto').setScale(2).setInteractive()
-        howto = this.physics.add.staticImage(this.scene.manager.game.config.width/2,this.scene.manager.game.config.height/2,'howto').setScale(scale)
-        bghowto.on ('pointerup', () => { 
-            howto.setVisible(false)
-            bghowto.setVisible(false)
-        });
 
         cursors = this.input.keyboard.createCursorKeys();
 
@@ -171,11 +161,6 @@ class GameScene extends Phaser.Scene {
 
     update() {
         player.update()
-
-        if(cursors.left.isDown || cursors.right.isDown){
-            howto.setVisible(false)
-            bghowto.setVisible(false)
-        }
     }
 }
 
