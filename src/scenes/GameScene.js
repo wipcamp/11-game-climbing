@@ -11,6 +11,7 @@ let howto
 let bghowto
 let respon
 let scale
+let cursors
 
 class GameScene extends Phaser.Scene {
     constructor(test) {
@@ -120,6 +121,7 @@ class GameScene extends Phaser.Scene {
          });
 
          this.load.image('gameover','../src/image/gameover.jpg')
+
      }
 
     create() {
@@ -159,10 +161,17 @@ class GameScene extends Phaser.Scene {
             howto.setVisible(false)
             bghowto.setVisible(false)
         });
+
+        cursors = this.input.keyboard.createCursorKeys();
     }
 
     update() {
         player.update()
+
+        if(cursors.left.isDown || cursors.right.isDown){
+            howto.setVisible(false)
+            bghowto.setVisible(false)
+        }
     }
 }
 
